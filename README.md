@@ -1,2 +1,3 @@
-# sistema-notas
+# Notas
+
 Sistema web para calcular notas de prova. Exemplo simples com Django e VueJS.
