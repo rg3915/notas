@@ -8,6 +8,10 @@
 
     <b-container>
       <b-table class="mt-3" striped hover :fields="fields" :items="users">
+        <template v-slot:cell(approved)="data">
+          <i v-if="data.value" class="fa fa-check ok"></i>
+          <i v-else class="fa fa-close no"></i>
+        </template>
         <template v-slot:cell(actions)="row">
           <b-button size="sm" @click="editUser(row.item)" variant="primary" class="mr-1">
             Editar
@@ -69,6 +73,12 @@ export default {
         label: 'Nota 2',
         key: 'grade2'
       }, {
+        label: 'Média',
+        key: 'average'
+      }, {
+        label: 'Aprovado',
+        key: 'approved'
+      }, {
         label: 'Ações',
         key: 'actions'
       }]
@@ -118,3 +128,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .ok {
+    color: green;
+  }
+  .no {
+    color: red;
+  }
+</style>
