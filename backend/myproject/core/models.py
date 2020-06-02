@@ -14,10 +14,20 @@ class Grade(models.Model):
     def __str__(self):
         return self.name
 
+    def average(self):
+        return (self.grade1 + self.grade2) / 2
+
+    def approved(self):
+        if self.average() >= 7:
+            return True
+        return False
+
     def to_dict(self):
         return {
             'pk': self.pk,
             'name': self.name,
             'grade1': self.grade1,
             'grade2': self.grade2,
+            'average': self.average(),
+            'approved': self.approved(),
         }

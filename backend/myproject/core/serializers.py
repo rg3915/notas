@@ -11,4 +11,6 @@ class GradeSerializer(serializers.ModelSerializer):
             'name',
             'grade1',
             'grade2',
+            'average',
+            'approved',
         )
