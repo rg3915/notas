@@ -3,21 +3,21 @@
     <Navbar/>
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Users/>
+    <Grades/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import Navbar from './components/Navbar.vue'
-import Users from './components/Users.vue'
+import Grades from './components/Grades.vue'
 
 export default {
   name: 'app',
   components: {
     // HelloWorld,
     Navbar,
-    Users
+    Grades
   }
 }
 </script>
