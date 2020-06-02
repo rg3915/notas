@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-button variant="primary" @click="isModalVisible = true">Adicionar usuário</b-button>
+    <b-container>
+      <div class="float-right pb-3">
+        <b-button variant="primary" @click="isModalVisible = true">Adicionar usuário</b-button>
+      </div>
+    </b-container>
 
     <b-container>
       <b-table class="mt-3" striped hover :fields="fields" :items="users">
@@ -32,41 +36,30 @@
         label="Nota 1"
         label-for="grade1"
       >
-        <b-form-input id="grade1" type="text" v-model="editingUser.grade1"></b-form-input>
+        <b-form-input id="grade1" type="number" v-model="editingUser.grade1"></b-form-input>
       </b-form-group>
       
       <b-form-group
         label="Nota 2"
         label-for="grade2"
       >
-        <b-form-input id="grade2" type="text" v-model="editingUser.grade2"></b-form-input>
+        <b-form-input id="grade2" type="number" v-model="editingUser.grade2"></b-form-input>
       </b-form-group>
     </b-modal>
   </div>
 </template>
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+
+const endpoint = 'http://localhost:8000/'
 
 export default {
   data() {
     return {
-      users: [{
-        pk: 1,
-        name: 'Alefe',
-        grade1: '10',
-        grade2: '5'
-      }, {
-        pk: 2,
-        name: 'Regis',
-        grade1: '5',
-        grade2: '10'
-      }],
+      users: [],
       editingUser: {},
       isModalVisible: false,
       fields: [{
-        label: '#',
-        key: 'pk'
-      }, {
         label: 'Nome',
         key: 'name'
       }, {
@@ -82,32 +75,30 @@ export default {
     }
   },
   created() {
-    // axios.get(endpoint + 'grade/')
-    //   .then(response => {
-    //     this.users = response.data;
-    //   })
+    axios.get(endpoint + 'grade/')
+      .then(response => {
+        this.users = response.data;
+      })
   },
   methods: {
     sendUser() {
-      const { pk } = this.editingUser;
+      const { id } = this.editingUser;
 
-      if (pk) {
-        // axios.post('/grade/' + pk, this.editingUser)
-        //   .then(res => {
+      if (id) {
+        axios.put(endpoint + 'grade/' + id + '/', this.editingUser)
+          .then(res => {
             const users = [...this.users];
-            const index = users.findIndex(u => u.pk == pk);
-            // users[index] = res.data;
-            users[index] = { ...this.editingUser };
+            const index = users.findIndex(u => u.id == id);
+            users[index] = res.data;
             this.users = users;
-          // });
+          });
         return;
       }
 
-      // axios.post('/grade', this.editingUser)
-      //   .then(res => {
-          // this.users.push(res.data);
-          this.users.push({ pk: Math.random(), ...this.editingUser });
-        // });
+      axios.post(endpoint + 'grade/', this.editingUser)
+        .then(res => {
+          this.users.push(res.data);
+        });
     },
     editUser(user) {
       this.editingUser = { ...user };
@@ -118,11 +109,11 @@ export default {
         return;
       }
 
-      // axios.delete('/grade/' + user.pk)
-      //   .then(() => {
-          const users = this.users.filter(u => u.pk != user.pk);
+      axios.delete(endpoint + 'grade/' + user.id + '/')
+        .then(() => {
+          const users = this.users.filter(u => u.id != user.id);
           this.users = users;
-        // });
+        });
     },
   }
 }
