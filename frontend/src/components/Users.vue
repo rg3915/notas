@@ -19,7 +19,7 @@ export default {
   created() {
     axios.get(endpoint + 'grade/')
       .then(response => {
-        this.users = response.data.data;
+        this.users = response.data;
       })
   }
 }
