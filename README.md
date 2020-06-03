@@ -63,6 +63,8 @@ CREATE DATABASE mydb OWNER myuser;
 
 Leia mais em https://gist.github.com/rg3915/f63d9a37ca6bd5c0c7ecd4a907bd681f
 
+E https://github.com/juliano777/pgsql_fs2w/blob/master/postgresql_sql_basico.pdf
+
 #### Editando o settings.py
 
 ```
