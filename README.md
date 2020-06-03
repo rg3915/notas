@@ -25,3 +25,14 @@ pip install -r requirements.txt
 python contrib/env_gen.py
 python manage.py migrate
 ```
+
+## Rodando o frontend
+
+Abra uma outra aba no terminal e vá para a pasta `frontend`.
+
+Então digite
+
+```
+npm install
+npm run serve
+```
